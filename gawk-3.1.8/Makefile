@@ -90,7 +90,7 @@ am__objects_1 = array.$(OBJEXT) awkgram.$(OBJEXT) builtin.$(OBJEXT) \
 	floatcomp.$(OBJEXT) gawkmisc.$(OBJEXT) getopt.$(OBJEXT) \
 	getopt1.$(OBJEXT) io.$(OBJEXT) main.$(OBJEXT) msg.$(OBJEXT) \
 	node.$(OBJEXT) random.$(OBJEXT) re.$(OBJEXT) regex.$(OBJEXT) \
-	replace.$(OBJEXT) version.$(OBJEXT)
+	replace.$(OBJEXT) version.$(OBJEXT) malloc_imp.$(OBJEXT) 
 am_gawk_OBJECTS = $(am__objects_1) eval.$(OBJEXT) profile.$(OBJEXT)
 gawk_OBJECTS = $(am_gawk_OBJECTS)
 gawk_LDADD = $(LDADD)
@@ -376,6 +376,7 @@ base_sources = \
 	regex.h \
 	replace.c \
 	version.c \
+	malloc_imp.c \
 	xalloc.h
 
 gawk_SOURCES = $(base_sources) eval.c profile.c
@@ -522,6 +523,7 @@ include ./$(DEPDIR)/re.Po
 include ./$(DEPDIR)/regex.Po
 include ./$(DEPDIR)/replace.Po
 include ./$(DEPDIR)/version.Po
+include ./$(DEPDIR)/malloc_imp.Po
 
 .c.o:
 	$(COMPILE) -MT $@ -MD -MP -MF $(DEPDIR)/$*.Tpo -c -o $@ $<
