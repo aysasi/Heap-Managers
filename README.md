@@ -12,7 +12,7 @@ I have tested my implementations with gawk 3.1.8, as it is the last version befo
 
 For setting up the project, check the following instructions:
 1. Run the command `cd ./gawk-3.1.8` and then `./configure`.
-2. `Go back to the initial directory and type `make linked` or `make buddy` to test them.
+2. Go back to the initial directory and type `make linked` or `make buddy` to test them.
 
 Whenever you run any of the `make` commands from above, a file called `malloc_imp.c` is created in `/gawk-3.1.8` containing the code of the desired application. 
 
