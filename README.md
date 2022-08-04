@@ -1,7 +1,7 @@
 # Heap-Managers
 Operating Systems final project. It includes two versions of malloc/calloc/realloc and free. One is a linked-list implementation and the other is an implementation of the buddy system.
 
-## Intrucctions for the assignment
+## Intructions for the assignment
 1. Your task is to implement two versions of malloc/calloc/realloc and free: One should be a linked-list implementation and the other an implementation of the buddy system.
 2. You need to use sbrk to allocate memory from the kernel on Linux for the list version and increment the heap size in suitable steps. For the buddy system, you are allowed to allocate a sufficiently large block at once.
 3. At a free, you must merge adjacent unallocated blocks in the list version and buddies in the buddy version.
