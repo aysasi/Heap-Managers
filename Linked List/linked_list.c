@@ -13,15 +13,23 @@ struct llist_t {
 	llist_t* 	next;                       // contiguous block to each block
 };
 
-llist_t* head = NULL;                       // first element of the list
+static llist_t* head = NULL;                       // first element of the list
 
 
 llist_t* create_block(llist_t* last, size_t size);
 llist_t* last_block(llist_t**, size_t);
 void free(void* ptr);
 
+void *malloc(size_t size);
+void free(void *ptr);
+void *calloc(size_t count, size_t size);
+void *realloc(void *ptr, size_t size);
+
 
 void *malloc(size_t size) {
+
+    if (size <=0)
+        return NULL;
 
 	llist_t* last = head;                // to iterate over the blocks
 
@@ -49,14 +57,32 @@ void *malloc(size_t size) {
 
 void *calloc(size_t count, size_t size) {
 
+    if (count <= 0 || size <= 0)
+        return NULL;
+
 	void* space = malloc(count * size);
 	if (space)
 	    memset(space, 0, count * size);     // fill blocks
+    //else
+    //    return NULL;  //i think this is not necessary because space is already NULL?
 	return space;
 }
 
 
 void *realloc(void *ptr, size_t size) {
+
+    if(!ptr)
+        return malloc(size);
+
+
+    if (ptr && size <= 0) {
+        free(ptr);
+        return NULL;
+    }
+
+    if(((llist_t*)ptr - 1)->size >= size)
+        return ptr;
+
 
     void* new_location = malloc(size);
 
@@ -69,20 +95,10 @@ void *realloc(void *ptr, size_t size) {
 }
 
 
-void free(void* ptr) {
-    llist_t* block = ((llist_t*) ptr) - 1;
-
-    llist_t* aux = head;                    // begins from the first block
-	while (aux && aux->next != block && aux != block)  {
-		aux = aux->next;
-	}
-
-    if (aux->next == block){
-        aux->next = block->next;
-    }
-    
-
-    block->free = 1;
+void free(void *ptr) {
+    if(ptr)
+        ((llist_t*)ptr - 1)->free = 1;
+    // if ptr is null, no operation is performed
 }
 
 
@@ -110,3 +126,4 @@ llist_t* last_block(llist_t** last, size_t size) {
 	}
 	return aux;
 }
+
