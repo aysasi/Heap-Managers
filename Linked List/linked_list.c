@@ -18,17 +18,16 @@ static llist_t* head = NULL;                       // first element of the list
 
 llist_t* create_block(llist_t* last, size_t size);
 llist_t* last_block(llist_t**, size_t);
-void free(void* ptr);
 
 void *malloc(size_t size);
 void free(void *ptr);
-void *calloc(size_t count, size_t size);
+void *calloc(size_t nmemb, size_t size);
 void *realloc(void *ptr, size_t size);
 
 
 void *malloc(size_t size) {
 
-    if (size <=0)
+    if (size ==0)
         return NULL;
 
 	llist_t* last = head;                // to iterate over the blocks
@@ -55,17 +54,21 @@ void *malloc(size_t size) {
 }
 
 
-void *calloc(size_t count, size_t size) {
+void *calloc(size_t nmemb, size_t size) {
 
-    if (count <= 0 || size <= 0)
+    if (nmemb == 0 || size == 0)
         return NULL;
 
-	void* space = malloc(count * size);
-	if (space)
-	    memset(space, 0, count * size);     // fill blocks
+    void* space = malloc(nmemb * size);
+	if (space) {
+	    memset(space, 0, nmemb * size);     // fill blocks
+	    
+	    }
+	return space;
+	
     //else
     //    return NULL;  //i think this is not necessary because space is already NULL?
-	return space;
+	
 }
 
 
@@ -75,7 +78,7 @@ void *realloc(void *ptr, size_t size) {
         return malloc(size);
 
 
-    if (ptr && size <= 0) {
+    if (size == 0) {
         free(ptr);
         return NULL;
     }
@@ -87,11 +90,12 @@ void *realloc(void *ptr, size_t size) {
     void* new_location = malloc(size);
 
     if (new_location) {                     // if it is possible to allocate the data
-        memcpy(new_location, ptr, size);    // copies data from old region to new
+        memmove(new_location, ptr, size);    // copies data from old region to new
 	    free(ptr);                          // frees old data
+	    return new_location;
     }
-
-	return new_location;
+	return NULL;
+	
 }
 
 
