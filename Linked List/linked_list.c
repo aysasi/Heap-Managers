@@ -56,10 +56,15 @@ void *malloc(size_t size) {
 
 void *calloc(size_t nmemb, size_t size) {
 
-    if (nmemb == 0 || size == 0)
+    if (nmemb == 0)
         return NULL;
-
-    void* space = malloc(nmemb * size);
+    
+    if (size == 0)
+    	return NULL;
+   
+   int s = nmemb * size;
+   
+    void* space = malloc(s);
 	if (space) {
 	    memset(space, 0, nmemb * size);     // fill blocks
 	    
