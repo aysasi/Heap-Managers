@@ -15,7 +15,7 @@
 typedef struct dllist_t dllist_t;
 struct dllist_t
 {
-	unsigned int free : 1; // width one field indicating if a block is being used or not
+	unsigned int free :1; // width one field indicating if a block is being used or not
 	int order;	   // (2^order)
 	//size_t max_size; 	//maximux size that fits in a block
 	dllist_t *prev;	   // previous block in list of free nodes
@@ -198,7 +198,7 @@ void init_memory()
 	int i = 0;
 	head = sbrk(MAX_SIZE);
 	
-	for (i = 0; i < MAX_ORDER + 1; i++) {
+	for (i = 0; i < MAX_ORDER; i++) {
 	    /*
             void *aux = sbrk((1 << i));
 	    dllist_t *aux2 = aux;
@@ -255,37 +255,22 @@ dllist_t *get_block(int order)
 	}
 
 	dllist_t *aux = free_nodes[order];  //error generated here
-    dllist_t *bigger_block = NULL;
-	dllist_t* aux2 = NULL;
+    	dllist_t *bigger_block = NULL;
 	
-	/*if (aux != NULL) {
-	    if (aux->free == 1)
-	    	return aux;
-	    	
-	    if (aux->next != NULL)
-	    	aux = aux->next;
-	}*/
+	while (aux != NULL) { //checks if there already exist a free block of that size
 	
-	while (aux != NULL) //checks if there already exist a free block of that size
-	{
-		//aux = NULL;
-
-		if(aux->next == NULL) {
-		    if (aux->free == 1) { //error
-			return aux;
-		    }
-		    aux = NULL;
+		if (aux->free == 1)
+			return aux; //if there already exists a free blck, it is returned
+		else {
+			if (aux->next != NULL)
+			    aux = aux->next;
+			else
+			    aux = NULL;
 		}
-		else {  //next == NULL
-		    aux = aux->next;
-		}
-		//else {
-		//	aux = NULL;
-		//	}
 	}
 
-	bigger_block = get_block(order + 1);
-	if (bigger_block)
+	bigger_block = get_block(order + 1); //if it gets to this line, it means that there doesnt exist a (free) block of this size, so it needs to find a bigger one to be divided
+	if (bigger_block != NULL)
 	{ // it is necessary to split in halves these blocks
 		aux = half(bigger_block, order);
 	}
