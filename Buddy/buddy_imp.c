@@ -195,7 +195,7 @@ void free(void *ptr)
 void init_memory()
 { // creates first block
 
-	//int i = 0;
+	int i = 0;
 	head = sbrk(MAX_SIZE);
 	
 	for (i = 0; i < MAX_ORDER + 1; i++) {
