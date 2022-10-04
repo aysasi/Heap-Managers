@@ -198,7 +198,7 @@ void init_memory()
 	//int i = 0;
 	head = sbrk(MAX_SIZE);
 	
-	//for (i = 0; i < MAX_ORDER + 1; i++) {
+	for (i = 0; i < MAX_ORDER + 1; i++) {
 	    /*
             void *aux = sbrk((1 << i));
 	    dllist_t *aux2 = aux;
@@ -207,8 +207,8 @@ void init_memory()
             aux2->order=i;
             aux2->prev=NULL;
 	    free_nodes[i] = aux2;  */
-	//    free_nodes[i] = NULL;
-	//}
+	    free_nodes[i] = NULL;
+	}
 
 	
 	dllist_t *first = head;
