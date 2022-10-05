@@ -11,8 +11,10 @@ Operating Systems final project. It includes two versions of malloc/calloc/reall
 I have tested my implementations with gawk 3.1.8, as it is the last version before a v.4, which may cause problems. Both implementations are found on `/Buddy/buddy_imp.c` and `/Linked/linked_list.c`, respectively.
 
 For setting up the project, check the following instructions:
-1. Run the command `cd ./gawk-3.1.8` and then `./configure`.
-2. Go back to the initial directory and type `make linked` or `make buddy` to test them.
+1. First, it is necesaty to extract the compressed `gawk-3.1.8` file.
+2. Run the command `cd ./gawk-3.1.8` and then `./configure`.
+3. After it has finished, go to file `Makefile` and in line 93 and  line 380 type `malloc_imp.$(OBJEXT)` and `\ malloc_imp.c` respectively.
+4. Go back to the initial directory and type `make linked` or `make buddy` to test them.
 
 Whenever you run any of the `make` commands from above, a file called `malloc_imp.c` is created in `/gawk-3.1.8` containing the code of the desired application. 
 
