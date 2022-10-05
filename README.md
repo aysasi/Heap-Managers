@@ -12,7 +12,7 @@ I have tested my implementations with gawk 3.1.8, as it is the last version befo
 
 For setting up the project, check the following instructions:
 1. First, it is necesaty to extract the compressed `gawk-3.1.8` file.
-2. Run the command `cd ./gawk-3.1.8` and then `./configure`.
+2. Run the command `cd ./gawk-3.1.8` and then `./configure`. Once it has finished,a first `make check` is required.
 3. After it has finished, go to file `Makefile` and in line 93 and  line 380 type `malloc_imp.$(OBJEXT)` and `\ malloc_imp.c` respectively.
 4. Go back to the initial directory and type `make linked` or `make buddy` to test them.
 
